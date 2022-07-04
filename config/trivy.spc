@@ -1,0 +1,3 @@
+connection "trivy" {
+  plugin = "trivy"
+}
