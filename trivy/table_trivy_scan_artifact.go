@@ -42,11 +42,6 @@ const (
 	imageArchiveArtifact   artifact.ArtifactType = "archive"
 )
 
-type artifactRow struct {
-	ArtifactType string
-	ArtifactName string
-}
-
 func listTrivyScanArtifactWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 
 	keyQuals := d.KeyColumnQuals
