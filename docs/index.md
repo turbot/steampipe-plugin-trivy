@@ -1,27 +1,20 @@
-![image](https://hub.steampipe.io/images/plugins/turbot/trivy-social-graphic.png)
+---
+organization: Turbot
+category: ["security"]
+icon_url: "/images/plugins/turbot/trivy.svg"
+brand_color: "#FA582D"
+display_name: Trivy
+name: trivy
+description: Steampipe plugin using Trivy to query advisories, vulnerabilities for containers, code and more.
+og_description: Query advisories, vulnerabilities, packages using Trivy with SQL! Open source CLI. No DB required.
+og_image: "/images/plugins/turbot/trivy-social-graphic.png"
+---
 
-# Trivy Plugin for Steampipe
+# Trivy + Steampipe
 
-Use SQL to query advisories, vulnerabilities for containers, code and more with [Trivy](https://github.com/aquasecurity/trivy).
+[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
-- **[Get started →](https://hub.steampipe.io/plugins/turbot/trivy)**
-- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/trivy/tables)
-- Community: [Slack Channel](https://steampipe.io/community/join)
-- Get involved: [Issues](https://github.com/turbot/steampipe-plugin-trivy/issues)
-
-## Quick start
-
-Install the plugin with [Steampipe](https://steampipe.io):
-
-```shell
-steampipe plugin install trivy
-```
-
-Run steampipe:
-
-```shell
-steampipe query
-```
+[Trivy](https://github.com/aquasecurity/trivy) Trivy is a vulnerability/misconfiguration/secret scanner for containers and other artifacts.
 
 Scan images or files for vulnerabilities using a query:
 
@@ -78,50 +71,37 @@ order by
 +---------------+---------------------------+------------------------------------+
 ```
 
-## Developing
+## Documentation
 
-Prerequisites:
+- **[Table definitions & examples →](/plugins/turbot/trivy/tables)**
 
-- [Steampipe](https://steampipe.io/downloads)
-- [Golang](https://golang.org/doc/install)
+## Get started
 
-Clone:
+### Install
 
-```sh
-git clone https://github.com/turbot/steampipe-plugin-trivy.git
-cd steampipe-plugin-trivy
+Download and install the latest Trivy plugin:
+
+```bash
+steampipe plugin install trivy
 ```
 
-Build, which automatically installs the new version to your `~/.steampipe/plugins` directory:
+### Configuration
 
-```shell
-make
+Installing the latest trivy plugin will create a config file (`~/.steampipe/config/trivy.spc`) with a single connection named `trivy`:
+
+```hcl
+connection "trivy" {
+  plugin = "trivy"
+
+  # Container images to scan by default
+  images = [ "turbot/steampipe", "ubuntu:latest" ]
+
+  # File system paths to scan by default. Must be a full path.
+  paths = [ "/your/code", "/more/of/your/code" ]
+}
 ```
 
-Configure the plugin:
+## Get involved
 
-```shell
-cp config/* ~/.steampipe/config
-vi ~/.steampipe/config/trivy.spc
-```
-
-Try it!
-
-```shell
-steampipe query
-> .inspect trivy
-```
-
-Further reading:
-
-- [Writing plugins](https://steampipe.io/docs/develop/writing-plugins)
-- [Writing your first table](https://steampipe.io/docs/develop/writing-your-first-table)
-
-## Contributing
-
-Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-plugin-prometheus/blob/main/LICENSE).
-
-`help wanted` issues:
-
-- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
-- [Trivy Plugin](https://github.com/turbot/steampipe-plugin-trivy/labels/help%20wanted)
+- Open source: https://github.com/turbot/steampipe-plugin-trivy
+- Community: [Slack Channel](https://steampipe.io/community/join)
