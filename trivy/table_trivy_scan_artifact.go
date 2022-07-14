@@ -73,23 +73,21 @@ func listTrivyScanArtifactWithScan(ctx context.Context, d *plugin.QueryData, _ *
 		config := GetConfig(d.Connection)
 		plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "config", config)
 
-		if &config != nil {
-			switch artifactType {
-			case "container_image":
-				if config.Images != nil {
-					images = config.Images
-				}
-			case "filesystem":
-				if config.Paths != nil {
-					paths = config.Paths
-				}
-			default:
-				if config.Images != nil {
-					images = config.Images
-				}
-				if config.Paths != nil {
-					paths = config.Paths
-				}
+		switch artifactType {
+		case "container_image":
+			if config.Images != nil {
+				images = config.Images
+			}
+		case "filesystem":
+			if config.Paths != nil {
+				paths = config.Paths
+			}
+		default:
+			if config.Images != nil {
+				images = config.Images
+			}
+			if config.Paths != nil {
+				paths = config.Paths
 			}
 		}
 	}

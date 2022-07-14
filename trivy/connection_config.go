@@ -45,10 +45,8 @@ func GetConfig(connection *plugin.Connection) trivyConfig {
 func GetConfigCacheDir(connection *plugin.Connection) string {
 	config := GetConfig(connection)
 	cacheDir := path.Join(os.TempDir(), "steampipe-plugin-trivy")
-	if &config != nil {
-		if config.CacheDir != nil {
-			cacheDir = *config.CacheDir
-		}
+	if config.CacheDir != nil {
+		cacheDir = *config.CacheDir
 	}
 	return cacheDir
 }
