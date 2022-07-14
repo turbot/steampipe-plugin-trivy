@@ -61,7 +61,7 @@ func listTrivyAdvisory(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 
 	keyQuals := d.KeyColumnQuals
 
-	conn.View(func(tx *bbolt.Tx) error {
+	err = conn.View(func(tx *bbolt.Tx) error {
 		err := tx.ForEach(func(sourceBytes []byte, b *bbolt.Bucket) error {
 
 			source := string(sourceBytes)
@@ -110,8 +110,17 @@ func listTrivyAdvisory(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 
 			return nil
 		})
+
+		if err != nil {
+			plugin.Logger(ctx).Error("trivy_advisory.listTrivyAdvisory", "transaction_error", err)
+		}
+
 		return err
 	})
 
-	return nil, nil
+	if err != nil {
+		plugin.Logger(ctx).Error("trivy_advisory.listTrivyAdvisory", "conn_view_error", err)
+	}
+
+	return nil, err
 }

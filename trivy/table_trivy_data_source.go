@@ -70,5 +70,9 @@ func listTrivyDataSource(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 		return nil
 	})
 
-	return nil, nil
+	if err != nil {
+		plugin.Logger(ctx).Error("trivy_advisory.listTrivyDataSource", "conn_view_error", err)
+	}
+
+	return nil, err
 }
