@@ -13,12 +13,12 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v3/plugin"
 )
 
-func tableTrivyTarget(ctx context.Context) *plugin.Table {
+func tableTrivyScanArtifact(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "trivy_target",
-		Description: "Scanning targets.",
+		Name:        "trivy_scan_artifact",
+		Description: "Container image and filesystem artifacts being scanned.",
 		List: &plugin.ListConfig{
-			Hydrate: listTrivyTargetWithScan,
+			Hydrate: listTrivyScanArtifactWithScan,
 			KeyColumns: []*plugin.KeyColumn{
 				{Name: "artifact_type", Require: plugin.Optional},
 				{Name: "artifact_name", Require: plugin.Optional, CacheMatch: "exact"},
@@ -26,10 +26,10 @@ func tableTrivyTarget(ctx context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "artifact_type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "artifact_name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "metadata", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "results", Type: proto.ColumnType_JSON, Description: ""},
+			{Name: "artifact_name", Type: proto.ColumnType_STRING, Description: "Name of the artifact, e.g. turbot/steampipe (container image), /my/files (filesystem)."},
+			{Name: "artifact_type", Type: proto.ColumnType_STRING, Description: "Type of the artifact, e.g. container_image, filesystem."},
+			{Name: "metadata", Type: proto.ColumnType_JSON, Description: "Metadata from the container image."},
+			{Name: "results", Type: proto.ColumnType_JSON, Description: "Detailed scan results, usually accessed through trivy_scan_* tables."},
 		},
 	}
 }
@@ -47,7 +47,7 @@ type artifactRow struct {
 	ArtifactName string
 }
 
-func listTrivyTargetWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func listTrivyScanArtifactWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 
 	keyQuals := d.KeyColumnQuals
 	images := []string{}
@@ -76,7 +76,7 @@ func listTrivyTargetWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin
 		// Use artifacts from the config
 
 		config := GetConfig(d.Connection)
-		plugin.Logger(ctx).Debug("trivy_target.listTrivyTarget", "config", config)
+		plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "config", config)
 
 		if &config != nil {
 			switch artifactType {
@@ -99,24 +99,24 @@ func listTrivyTargetWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin
 		}
 	}
 
-	plugin.Logger(ctx).Debug("trivy_target.listTrivyTarget", "images", images)
-	plugin.Logger(ctx).Debug("trivy_target.listTrivyTarget", "paths", paths)
+	plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "images", images)
+	plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "paths", paths)
 
-	// Note: Target scanning is done in a serial fashion below. I tried moving this into
+	// Note: Artifact scanning is done in a serial fashion below. I tried moving this into
 	// a separate hydrate function, but:
 	// * It was actually slower in testing.
-	// * It made reuse of target data in scan tables much harder.
+	// * It made reuse of artifact data in scan tables much harder.
 	for _, i := range images {
-		plugin.Logger(ctx).Debug("trivy_target.listTrivyTarget", "scanningArtifactType", "image", "scanningArtifactName", i)
-		imageResult, err := scanTarget(ctx, d, "image", i)
+		plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "scanningArtifactType", "image", "scanningArtifactName", i)
+		imageResult, err := scanArtifact(ctx, d, "image", i)
 		if err == nil {
 			d.StreamListItem(ctx, imageResult)
 		}
 	}
 
 	for _, i := range paths {
-		plugin.Logger(ctx).Debug("trivy_target.listTrivyTarget", "scanningArtifactType", "fs", "scanningArtifactName", i)
-		imageResult, err := scanTarget(ctx, d, "fs", i)
+		plugin.Logger(ctx).Debug("trivy_artifact.listTrivyScanArtifact", "scanningArtifactType", "fs", "scanningArtifactName", i)
+		imageResult, err := scanArtifact(ctx, d, "fs", i)
 		if err == nil {
 			d.StreamListItem(ctx, imageResult)
 		}
@@ -125,16 +125,16 @@ func listTrivyTargetWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin
 	return nil, nil
 }
 
-func scanTarget(ctx context.Context, d *plugin.QueryData, artifactType artifact.ArtifactType, targetName string) (types.Report, error) {
+func scanArtifact(ctx context.Context, d *plugin.QueryData, artifactType artifact.ArtifactType, artifactName string) (types.Report, error) {
 
-	plugin.Logger(ctx).Debug("trivy_target.scanTarget", "targetName", targetName)
-	plugin.Logger(ctx).Debug("trivy_target.scanTarget", "artifactType", artifactType)
+	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "artifactName", artifactName)
+	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "artifactType", artifactType)
 
 	cacheDir := GetConfigCacheDir(d.Connection)
 	dbRepo := GetConfigDatabaseRepository(d.Connection)
 
-	plugin.Logger(ctx).Debug("trivy_target.scanTarget", "cacheDir", cacheDir)
-	plugin.Logger(ctx).Debug("trivy_target.scanTarget", "dbRepo", dbRepo)
+	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "cacheDir", cacheDir)
+	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "dbRepo", dbRepo)
 
 	opt := artifact.Option{
 		GlobalOption: option.GlobalOption{
@@ -145,9 +145,9 @@ func scanTarget(ctx context.Context, d *plugin.QueryData, artifactType artifact.
 			// Use the cache dir as specified in the plugin config
 			CacheDir: cacheDir,
 		},
-		// Target this specific artifact for scanning
+		// Artifact this specific artifact for scanning
 		ArtifactOption: option.ArtifactOption{
-			Target: targetName,
+			Target: artifactName,
 		},
 		// Get as much data as we can from the scan. In the future it may be worth only
 		// targeting the data we need, but for now it's convenient to get everything
@@ -174,13 +174,13 @@ func scanTarget(ctx context.Context, d *plugin.QueryData, artifactType artifact.
 	opt.ReportOption.Severities = severities
 
 	// Logging for debug
-	plugin.Logger(ctx).Debug("trivy_target.scanTarget", "opt", opt)
+	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "opt", opt)
 
 	var report types.Report
 
 	runner, err := artifact.NewRunner(opt)
 	if err != nil {
-		plugin.Logger(ctx).Error("trivy_target.scanTarget", "run_error", err, "opt", opt)
+		plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "run_error", err, "opt", opt)
 		return report, err
 	}
 	defer runner.Close(ctx)
@@ -188,22 +188,22 @@ func scanTarget(ctx context.Context, d *plugin.QueryData, artifactType artifact.
 	switch artifactType {
 	case containerImageArtifact, imageArchiveArtifact:
 		if report, err = runner.ScanImage(ctx, opt); err != nil {
-			plugin.Logger(ctx).Error("trivy_target.scanTarget", "artifactType", artifactType, "opt", opt, "scan_error", err)
+			plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "artifactType", artifactType, "opt", opt, "scan_error", err)
 			return report, err
 		}
 	case filesystemArtifact:
 		if report, err = runner.ScanFilesystem(ctx, opt); err != nil {
-			plugin.Logger(ctx).Error("trivy_target.scanTarget", "artifactType", artifactType, "opt", opt, "scan_error", err)
+			plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "artifactType", artifactType, "opt", opt, "scan_error", err)
 			return report, err
 		}
 	case rootfsArtifact:
 		if report, err = runner.ScanRootfs(ctx, opt); err != nil {
-			plugin.Logger(ctx).Error("trivy_target.scanTarget", "artifactType", artifactType, "opt", opt, "scan_error", err)
+			plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "artifactType", artifactType, "opt", opt, "scan_error", err)
 			return report, err
 		}
 	case repositoryArtifact:
 		if report, err = runner.ScanRepository(ctx, opt); err != nil {
-			plugin.Logger(ctx).Error("trivy_target.scanTarget", "artifactType", artifactType, "opt", opt, "scan_error", err)
+			plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "artifactType", artifactType, "opt", opt, "scan_error", err)
 			return report, err
 		}
 	}

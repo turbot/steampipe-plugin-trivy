@@ -16,17 +16,17 @@ func tableTrivyScanPackage(ctx context.Context) *plugin.Table {
 		Name:        "trivy_scan_package",
 		Description: "Scan files and images for OS and language package versions.",
 		List: &plugin.ListConfig{
-			ParentHydrate: listTrivyTargetWithScan,
+			ParentHydrate: listTrivyScanArtifactWithScan,
 			Hydrate:       listTrivyScanPackage,
 			KeyColumns: []*plugin.KeyColumn{
-				{Name: "artifact_type", Require: plugin.Optional},
 				{Name: "artifact_name", Require: plugin.Optional, CacheMatch: "exact"},
+				{Name: "artifact_type", Require: plugin.Optional},
 			},
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "artifact_type", Type: proto.ColumnType_STRING, Description: "Type of artifact containing the package, e.g. container_image."},
 			{Name: "artifact_name", Type: proto.ColumnType_STRING, Description: "Name of the artifact containing the package."},
+			{Name: "artifact_type", Type: proto.ColumnType_STRING, Description: "Type of artifact containing the package, e.g. container_image."},
 			{Name: "target", Type: proto.ColumnType_STRING, Description: "Target within the artifact, e.g. library file or container image."},
 			{Name: "class", Type: proto.ColumnType_STRING, Description: "Class of the package, e.g. lang-pkgs, os-pkgs."},
 			{Name: "type", Type: proto.ColumnType_STRING, Description: "Type of the package, e.g. debian, ubuntu, yarn, npm, gomod."},

@@ -31,24 +31,24 @@ func tableTrivyAdvisory(ctx context.Context) *plugin.Table {
 			{Name: "source", Type: proto.ColumnType_STRING, Description: "Operating system or package the advisory is for, e.g. alpine 3.10."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name of the package with the vulnerability, e.g. ansible."},
 			{Name: "key", Type: proto.ColumnType_STRING, Description: "Key referencing the vulnerability, e.g. CVE-2021-27506."},
-			{Name: "vulnerability_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Value.VulnerabilityID").NullIfZero(), Description: "CVE-ID or vendor ID."},
-			{Name: "vendor_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("Value.VendorIDs").NullIfZero(), Description: "RHSA-ID and DSA-ID."},
-			{Name: "state", Type: proto.ColumnType_STRING, Transform: transform.FromField("Value.State").NullIfZero(), Description: "State of the advisory. Empty if fixed version is set. e.g. Will not fix and Affected."},
-			{Name: "severity", Type: proto.ColumnType_JSON, Transform: transform.FromField("Value.Severity"), Description: ""},
-			{Name: "fixed_version", Type: proto.ColumnType_STRING, Transform: transform.FromField("Value.FixedVersion").NullIfZero(), Description: "Version when the vulnerability is fixed."},
-			{Name: "affected_version", Type: proto.ColumnType_STRING, Transform: transform.FromField("Value.AffectedVersion").NullIfZero(), Description: "Versions when the vulnerability is affected. Only for Arch Linux."},
-			{Name: "vulnerable_versions", Type: proto.ColumnType_JSON, Transform: transform.FromField("Value.VulnerableVersions"), Description: "Versions that are vulnerable."},
-			{Name: "patched_versions", Type: proto.ColumnType_JSON, Transform: transform.FromField("Value.PatchedVersions"), Description: "Versions that patch this vulnerability."},
-			{Name: "unaffected_versions", Type: proto.ColumnType_JSON, Transform: transform.FromField("Value.UnaffectedVersions"), Description: "Versions that are not affected."},
+			{Name: "vulnerability_id", Type: proto.ColumnType_STRING, Description: "CVE-ID or vendor ID."},
+			{Name: "vendor_ids", Type: proto.ColumnType_STRING, Description: "RHSA-ID and DSA-ID."},
+			{Name: "state", Type: proto.ColumnType_STRING, Description: "State of the advisory. Empty if fixed version is set. e.g. Will not fix and Affected."},
+			{Name: "severity", Type: proto.ColumnType_INT, Transform: transform.FromField("Severity"), Description: "Severity rating (0, 1, 2, 3) for the advisory."},
+			{Name: "fixed_version", Type: proto.ColumnType_STRING, Description: "Version when the vulnerability is fixed."},
+			{Name: "affected_version", Type: proto.ColumnType_STRING, Description: "Versions when the vulnerability is affected. Only for Arch Linux."},
+			{Name: "vulnerable_versions", Type: proto.ColumnType_JSON, Description: "Versions that are vulnerable."},
+			{Name: "patched_versions", Type: proto.ColumnType_JSON, Description: "Versions that patch this vulnerability."},
+			{Name: "unaffected_versions", Type: proto.ColumnType_JSON, Description: "Versions that are not affected."},
 		},
 	}
 }
 
 type advisoryRow struct {
-	Source string           `json:"source"`
-	Name   string           `json:"name"`
-	Key    string           `json:"key"`
-	Value  dbTypes.Advisory `json:"value"`
+	Source           string `json:"source"`
+	Name             string `json:"name"`
+	Key              string `json:"key"`
+	dbTypes.Advisory `json:"value"`
 }
 
 func listTrivyAdvisory(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
@@ -101,9 +101,9 @@ func listTrivyAdvisory(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 					var vuln dbTypes.Advisory
 					err := json.Unmarshal(v2, &vuln)
 					if err != nil {
-						plugin.Logger(ctx).Warn("trivy_advisory.listTrivyAdvisory", "source", source, "name", string(k), "key", string(k2), "value", string(v2), "data_error", err)
+						plugin.Logger(ctx).Error("trivy_advisory.listTrivyAdvisory", "source", source, "name", string(k), "key", string(k2), "value", string(v2), "data_error", err)
 					} else {
-						d.StreamListItem(ctx, advisoryRow{Source: source, Name: string(k), Key: string(k2), Value: vuln})
+						d.StreamListItem(ctx, advisoryRow{source, string(k), string(k2), vuln})
 					}
 				}
 			}

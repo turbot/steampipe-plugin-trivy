@@ -61,7 +61,7 @@ func listTrivyDataSource(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 			var ds dbTypes.DataSource
 			err := json.Unmarshal(v, &ds)
 			if err != nil {
-				plugin.Logger(ctx).Warn("trivy_advisory.listTrivyDataSource", "system", string(k), "value", string(v), "data_error", err)
+				plugin.Logger(ctx).Error("trivy_advisory.listTrivyDataSource", "system", string(k), "value", string(v), "data_error", err)
 				continue
 			}
 			d.StreamListItem(ctx, dataSourceRow{System: string(k), ID: string(ds.ID), Name: ds.Name, URL: ds.URL})
