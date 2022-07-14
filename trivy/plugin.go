@@ -24,10 +24,9 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"trivy_data_source":              tableTrivyDataSource(ctx),
 			"trivy_dependency":               tableTrivyDependency(ctx),
 			"trivy_package":                  tableTrivyPackage(ctx),
-			"trivy_result":                   tableTrivyResult(ctx),
-			"trivy_secret":                   tableTrivySecret(ctx),
+			"trivy_scan_secret":              tableTrivyScanSecret(ctx),
+			"trivy_scan_vulnerability":       tableTrivyScanVulnerability(ctx),
 			"trivy_target":                   tableTrivyTarget(ctx),
-			"trivy_vulnerability":            tableTrivyVulnerability(ctx),
 			"trivy_vulnerability_definition": tableTrivyVulnerabilityDefinition(ctx),
 		},
 	}

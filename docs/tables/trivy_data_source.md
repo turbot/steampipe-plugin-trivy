@@ -15,6 +15,19 @@ order by
   system
 ```
 
+### Get a specific data source
+
+```sql
+select
+  system,
+  name,
+  url
+from
+  trivy_data_source
+where
+  name = 'Oracle Linux 6'
+```
+
 ### List all Alpine Linux data sources
 
 ```sql

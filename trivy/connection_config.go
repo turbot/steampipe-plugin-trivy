@@ -1,33 +1,30 @@
 package trivy
 
 import (
+	"os"
+	"path"
+
 	"github.com/turbot/steampipe-plugin-sdk/v3/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/v3/plugin/schema"
 )
 
 type trivyConfig struct {
-	Hostname *string `cty:"hostname"`
-	APIKey   *string `cty:"api_key"`
-	Username *string `cty:"username"`
-	Password *string `cty:"password"`
-	Timeout  *int    `cty:"timeout"`
+	CacheDir *string  `cty:"cache_dir"`
+	Images   []string `cty:"images"`
+	Paths    []string `cty:"paths"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
-	"hostname": {
+	"cache_dir": {
 		Type: schema.TypeString,
 	},
-	"api_key": {
-		Type: schema.TypeString,
+	"images": {
+		Type: schema.TypeList,
+		Elem: &schema.Attribute{Type: schema.TypeString},
 	},
-	"username": {
-		Type: schema.TypeString,
-	},
-	"password": {
-		Type: schema.TypeString,
-	},
-	"timeout": {
-		Type: schema.TypeInt,
+	"paths": {
+		Type: schema.TypeList,
+		Elem: &schema.Attribute{Type: schema.TypeString},
 	},
 }
 
@@ -42,4 +39,22 @@ func GetConfig(connection *plugin.Connection) trivyConfig {
 	}
 	config, _ := connection.Config.(trivyConfig)
 	return config
+}
+
+// GetConfigCacheDir :: get cache directory from config, or return the default
+func GetConfigCacheDir(connection *plugin.Connection) string {
+	config := GetConfig(connection)
+	cacheDir := path.Join(os.TempDir(), "steampipe-plugin-trivy")
+	if &config != nil {
+		if config.CacheDir != nil {
+			cacheDir = *config.CacheDir
+		}
+	}
+	return cacheDir
+}
+
+// GetConfigCacheDir :: get cache directory from config, or return the default
+func GetConfigDatabaseRepository(connection *plugin.Connection) string {
+	// No config for this setting yet, just return the default
+	return "ghcr.io/aquasecurity/trivy-db"
 }
