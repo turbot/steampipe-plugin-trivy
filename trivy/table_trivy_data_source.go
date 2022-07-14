@@ -47,7 +47,7 @@ func listTrivyDataSource(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 		return nil, err
 	}
 
-	conn.View(func(tx *bbolt.Tx) error {
+	err = conn.View(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte("data-source"))
 		c := b.Cursor()
 
