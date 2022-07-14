@@ -16,7 +16,7 @@ func tableTrivyDependency(ctx context.Context) *plugin.Table {
 		Name:        "trivy_dependency",
 		Description: "Dependencies in the scanned artifacts.",
 		List: &plugin.ListConfig{
-			ParentHydrate: listTrivyTarget,
+			ParentHydrate: listTrivyTargetWithScan,
 			Hydrate:       listTrivyDependency,
 		},
 		Columns: []*plugin.Column{

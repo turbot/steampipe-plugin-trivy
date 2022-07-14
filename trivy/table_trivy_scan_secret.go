@@ -13,10 +13,14 @@ import (
 func tableTrivyScanSecret(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "trivy_scan_secret",
-		Description: "Secrets in the scanned artifacts.",
+		Description: "Scan files and images for secrets.",
 		List: &plugin.ListConfig{
 			ParentHydrate: listTrivyTargetWithScan,
 			Hydrate:       listTrivyScanSecret,
+			KeyColumns: []*plugin.KeyColumn{
+				{Name: "artifact_type", Require: plugin.Optional},
+				{Name: "artifact_name", Require: plugin.Optional, CacheMatch: "exact"},
+			},
 		},
 		Columns: []*plugin.Column{
 			// Top columns

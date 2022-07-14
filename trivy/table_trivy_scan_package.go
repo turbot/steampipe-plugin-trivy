@@ -11,13 +11,17 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v3/plugin/transform"
 )
 
-func tableTrivyPackage(ctx context.Context) *plugin.Table {
+func tableTrivyScanPackage(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "trivy_package",
-		Description: "Packages in the scanned artifacts.",
+		Name:        "trivy_scan_package",
+		Description: "Scan files and images for OS and language package versions.",
 		List: &plugin.ListConfig{
-			ParentHydrate: listTrivyTarget,
-			Hydrate:       listTrivyPackage,
+			ParentHydrate: listTrivyTargetWithScan,
+			Hydrate:       listTrivyScanPackage,
+			KeyColumns: []*plugin.KeyColumn{
+				{Name: "artifact_type", Require: plugin.Optional},
+				{Name: "artifact_name", Require: plugin.Optional, CacheMatch: "exact"},
+			},
 		},
 		Columns: []*plugin.Column{
 			// Top columns
@@ -57,7 +61,7 @@ type packageRow struct {
 	Type   string
 }
 
-func listTrivyPackage(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTrivyScanPackage(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	target := h.Item.(types.Report)
 

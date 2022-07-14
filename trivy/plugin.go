@@ -19,15 +19,14 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			//ShouldIgnoreError: isNotFoundError,
 		},
 		TableMap: map[string]*plugin.Table{
-			//"trivy_component":     tableTrivyComponent(ctx),
-			"trivy_advisory":                 tableTrivyAdvisory(ctx),
-			"trivy_data_source":              tableTrivyDataSource(ctx),
-			"trivy_dependency":               tableTrivyDependency(ctx),
-			"trivy_package":                  tableTrivyPackage(ctx),
-			"trivy_scan_secret":              tableTrivyScanSecret(ctx),
-			"trivy_scan_vulnerability":       tableTrivyScanVulnerability(ctx),
-			"trivy_target":                   tableTrivyTarget(ctx),
-			"trivy_vulnerability_definition": tableTrivyVulnerabilityDefinition(ctx),
+			"trivy_advisory":           tableTrivyAdvisory(ctx),
+			"trivy_data_source":        tableTrivyDataSource(ctx),
+			"trivy_dependency":         tableTrivyDependency(ctx),
+			"trivy_scan_package":       tableTrivyScanPackage(ctx),
+			"trivy_scan_secret":        tableTrivyScanSecret(ctx),
+			"trivy_scan_vulnerability": tableTrivyScanVulnerability(ctx),
+			"trivy_target":             tableTrivyTarget(ctx),
+			"trivy_vulnerability":      tableTrivyVulnerability(ctx),
 		},
 	}
 	return p
