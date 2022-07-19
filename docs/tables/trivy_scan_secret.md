@@ -10,7 +10,7 @@ Scan files and images for secrets.
 select
   *
 from
-  trivy_scan_secret
+  trivy_scan_secret;
 ```
 
 ### Scan a specific directory for secrets
@@ -22,7 +22,7 @@ from
   trivy_scan_secret
 where
   artifact_type = 'filesystem'
-  and artifact_name = '/Users/jane/.aws'
+  and artifact_name = '/Users/jane/.aws';
 ```
 
 ### Scan a specific container image for secrets
@@ -34,7 +34,7 @@ from
   trivy_scan_secret
 where
   artifact_type = 'container_image'
-  and artifact_name = 'turbot/steampipe'
+  and artifact_name = 'turbot/steampipe';
 ```
 
 ### Count of secrets by artifact
@@ -50,7 +50,7 @@ group by
   artifact_type,
   artifact_name
 order by
-  count desc
+  count desc;
 ```
 
 ### Count of secrets by rule
@@ -64,5 +64,5 @@ from
 group by
   rule_id
 order by
-  count desc
+  count desc;
 ```

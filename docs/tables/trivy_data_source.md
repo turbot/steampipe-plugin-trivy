@@ -12,7 +12,7 @@ select
 from
   trivy_data_source
 order by
-  system
+  system;
 ```
 
 ### Get a specific data source
@@ -25,7 +25,7 @@ select
 from
   trivy_data_source
 where
-  name = 'Oracle Linux 6'
+  name = 'Oracle Linux 6';
 ```
 
 ### List all Alpine Linux data sources
@@ -40,5 +40,6 @@ from
 where
   id = 'alpine'
 order by
-  name, system
+  name,
+  system;
 ```

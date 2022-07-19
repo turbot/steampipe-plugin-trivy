@@ -11,7 +11,7 @@ select
   artifact_name,
   artifact_type
 from
-  trivy_scan_artifact
+  trivy_scan_artifact;
 ```
 
 ### OS for container image artifacts
@@ -24,7 +24,7 @@ select
 from
   trivy_scan_artifact
 where
-  artifact_type = 'container_image'
+  artifact_type = 'container_image';
 ```
 
 ### Environment variables for container image artifacts
@@ -36,7 +36,7 @@ select
 from
   trivy_scan_artifact
 where
-  artifact_type = 'container_image'
+  artifact_type = 'container_image';
 ```
 
 ### Exposed ports for container image artifacts
@@ -49,7 +49,7 @@ from
   trivy_scan_artifact,
   jsonb_object_keys(metadata -> 'ImageConfig' -> 'config' -> 'ExposedPorts') as port
 where
-  artifact_type = 'container_image'
+  artifact_type = 'container_image';
 ```
 
 ### Get full metadata and scan results for every artifact
@@ -63,5 +63,5 @@ select
   artifact_type,
   jsonb_pretty(results)
 from
-  trivy_scan_artifact
+  trivy_scan_artifact;
 ```

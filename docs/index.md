@@ -28,7 +28,7 @@ from
   trivy_scan_vulnerability
 where
   artifact_type = 'container_image'
-  and artifact_name = 'turbot/steampipe'
+  and artifact_name = 'turbot/steampipe';
 ```
 
 ```sh
@@ -55,7 +55,7 @@ from
 where
   name like 'CVE-2022-%'
 order by
-  name
+  name;
 ```
 
 ```sh
