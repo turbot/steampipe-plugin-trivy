@@ -16,7 +16,7 @@ select
   name,
   version
 from
-  trivy_scan_package
+  trivy_scan_package;
 ```
 
 ### Scan a specific directory for packages
@@ -32,7 +32,7 @@ from
   trivy_scan_package
 where
   artifact_type = 'filesystem'
-  and artifact_name = '/Users/jane/src/steampipe'
+  and artifact_name = '/Users/jane/src/steampipe';
 ```
 
 ### Scan a specific container image for packages
@@ -48,7 +48,7 @@ from
   trivy_scan_package
 where
   artifact_type = 'container_image'
-  and artifact_name = 'turbot/steampipe'
+  and artifact_name = 'turbot/steampipe';
 ```
 
 ### Find all installations of the lodash package
@@ -64,7 +64,7 @@ select
 from
   trivy_scan_package
 where
-  name = 'lodash'
+  name = 'lodash';
 ```
 
 ### Find packages with multiple versions installed inside a single target
@@ -94,7 +94,7 @@ from (
 where
   count > 1
 order by
-  count desc
+  count desc;
 ```
 
 ### Find packages installed / contained within a single source package
@@ -127,7 +127,7 @@ from (
 where
   count > 1
 order by
-  count desc
+  count desc;
 ```
 
 ### Number of packages installed by type
@@ -148,7 +148,7 @@ group by
   class,
   type
 order by
-  count desc
+  count desc;
 ```
 
 ### Advisories not fixed as the package was "end-of-life"
@@ -162,7 +162,7 @@ select
 from
   trivy_scan_package
 where
-  state = 'end-of-life'
+  state = 'end-of-life';
 ```
 
 ### Scanned artifacts and the unique targets that contain packages
@@ -173,5 +173,5 @@ select distinct
   artifact_type,
   target
 from
-  trivy_scan_package
+  trivy_scan_package;
 ```

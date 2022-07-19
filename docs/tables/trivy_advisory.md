@@ -16,7 +16,7 @@ from
 order by
   source,
   name,
-  key
+  key;
 ```
 
 ### Count of advisories by source
@@ -30,7 +30,7 @@ from
 group by
   source
 order by
-  count desc
+  count desc;
 ```
 
 ### All advisories for xen
@@ -49,7 +49,7 @@ order by
   name,
   key,
   source,
-  fixed_version
+  fixed_version;
 ```
 
 ### Advisories not fixed as the package was "end-of-life"
@@ -63,5 +63,5 @@ select
 from
   trivy_advisory
 where
-  state = 'end-of-life'
+  state = 'end-of-life';
 ```
