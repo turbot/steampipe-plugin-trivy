@@ -2,7 +2,7 @@
 
 _Bug fixes_
 
-- Fixed the brand color of the social graphic icon. ([#4](https://github.com/turbot/steampipe-plugin-trivy/pull/4))
+- Fixed the brand color. ([#4](https://github.com/turbot/steampipe-plugin-trivy/pull/4))
 
 ## v0.0.1 [2022-07-19]
 
