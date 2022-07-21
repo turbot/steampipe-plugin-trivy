@@ -2,7 +2,7 @@
 organization: Turbot
 category: ["security"]
 icon_url: "/images/plugins/turbot/trivy.svg"
-brand_color: "#FA582D"
+brand_color: "#1904DA"
 display_name: Trivy
 name: trivy
 description: Steampipe plugin using Trivy to query advisories, vulnerabilities for containers, code and more.
