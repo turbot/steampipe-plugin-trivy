@@ -3,10 +3,9 @@ module github.com/turbot/steampipe-plugin-trivy
 go 1.18
 
 require (
-	github.com/aquasecurity/go-dep-parser v0.0.0-20220626060741-179d0b167e5f
 	github.com/aquasecurity/trivy v0.29.2
 	github.com/aquasecurity/trivy-db v0.0.0-20220711124113-0230f730092d
-	github.com/turbot/steampipe-plugin-sdk/v3 v3.3.2
+	github.com/turbot/steampipe-plugin-sdk/v4 v4.0.0-rc.1
 	github.com/urfave/cli/v2 v2.11.0
 	go.etcd.io/bbolt v1.3.6
 )
@@ -40,14 +39,17 @@ require (
 	github.com/OneOfOne/xxhash v1.2.8 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20220711121315-1fde58898e96 // indirect
 	github.com/VividCortex/ewma v1.2.0 // indirect
+	github.com/XiaoMi/pegasus-go-client v0.0.0-20210427083443-f3b6b08bc4c2 // indirect
 	github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/agnivade/levenshtein v1.1.1 // indirect
 	github.com/alecthomas/chroma v0.10.0 // indirect
+	github.com/allegro/bigcache/v3 v3.0.2 // indirect
 	github.com/apparentlymart/go-cidr v1.1.0 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/aquasecurity/defsec v0.68.9 // indirect
+	github.com/aquasecurity/go-dep-parser v0.0.0-20220626060741-179d0b167e5f // indirect
 	github.com/aquasecurity/go-gem-version v0.0.0-20201115065557-8eed6fe000ce // indirect
 	github.com/aquasecurity/go-npm-version v0.0.0-20201110091526-0b796d180798 // indirect
 	github.com/aquasecurity/go-pep440-version v0.0.0-20210121094942-22b2f8951d46 // indirect
@@ -58,6 +60,7 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
+	github.com/bradfitz/gomemcache v0.0.0-20220106215444-fb4bf637b56d // indirect
 	github.com/briandowns/spinner v1.18.1 // indirect
 	github.com/btubbs/datetime v0.1.1 // indirect
 	github.com/caarlos0/env/v6 v6.9.3 // indirect
@@ -96,6 +99,7 @@ require (
 	github.com/docker/go-metrics v0.0.1 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/eko/gocache/v3 v3.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.8.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/evanphx/json-patch v5.6.0+incompatible // indirect
@@ -218,6 +222,7 @@ require (
 	github.com/owenrumney/go-sarif/v2 v2.1.2 // indirect
 	github.com/owenrumney/squealer v1.1.0 // indirect
 	github.com/package-url/packageurl-go v0.1.1-0.20220203205134-d70459300c8a // indirect
+	github.com/pegasus-kv/thrift v0.13.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -303,7 +308,9 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.28 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
+	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
