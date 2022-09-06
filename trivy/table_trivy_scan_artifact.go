@@ -9,8 +9,8 @@ import (
 	"github.com/aquasecurity/trivy/pkg/types"
 	"github.com/urfave/cli/v2"
 
-	"github.com/turbot/steampipe-plugin-sdk/v3/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v3/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 )
 
 func tableTrivyScanArtifact(ctx context.Context) *plugin.Table {
