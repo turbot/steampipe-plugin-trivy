@@ -9,9 +9,9 @@ import (
 
 	dbTypes "github.com/aquasecurity/trivy-db/pkg/types"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableTrivyAdvisory(ctx context.Context) *plugin.Table {
@@ -59,7 +59,7 @@ func listTrivyAdvisory(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 		return nil, err
 	}
 
-	keyQuals := d.KeyColumnQuals
+	keyQuals := d.EqualsQuals
 
 	err = conn.View(func(tx *bbolt.Tx) error {
 		err := tx.ForEach(func(sourceBytes []byte, b *bbolt.Bucket) error {
