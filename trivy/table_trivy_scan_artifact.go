@@ -9,8 +9,8 @@ import (
 	"github.com/aquasecurity/trivy/pkg/types"
 	"github.com/urfave/cli/v2"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func tableTrivyScanArtifact(ctx context.Context) *plugin.Table {
@@ -44,7 +44,7 @@ const (
 
 func listTrivyScanArtifactWithScan(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 
-	keyQuals := d.KeyColumnQuals
+	keyQuals := d.EqualsQuals
 	images := []string{}
 	paths := []string{}
 

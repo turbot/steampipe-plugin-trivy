@@ -7,7 +7,7 @@ import (
 	"github.com/aquasecurity/trivy/pkg/commands/operation"
 	"go.etcd.io/bbolt"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func connectDatabase(ctx context.Context, d *plugin.QueryData) (*bbolt.DB, error) {

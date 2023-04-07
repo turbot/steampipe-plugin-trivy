@@ -8,8 +8,8 @@ import (
 	dbTypes "github.com/aquasecurity/trivy-db/pkg/types"
 	"go.etcd.io/bbolt"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func tableTrivyDataSource(ctx context.Context) *plugin.Table {
@@ -51,7 +51,7 @@ func listTrivyDataSource(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 		b := tx.Bucket([]byte("data-source"))
 		c := b.Cursor()
 
-		keyQuals := d.KeyColumnQuals
+		keyQuals := d.EqualsQuals
 		systemPrefix := []byte{}
 		if keyQuals["system"] != nil {
 			systemPrefix = []byte(keyQuals["system"].GetStringValue())
