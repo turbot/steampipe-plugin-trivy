@@ -6,7 +6,7 @@ Use SQL to query advisories, vulnerabilities for containers, code and more with 
 
 - **[Get started →](https://hub.steampipe.io/plugins/turbot/trivy)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/trivy/tables)
-- Community: [Slack Channel](https://steampipe.io/community/join)
+- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
 - Get involved: [Issues](https://github.com/turbot/steampipe-plugin-trivy/issues)
 
 ## Quick start
