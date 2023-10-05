@@ -6,7 +6,7 @@ require (
 	github.com/aquasecurity/trivy v0.29.2
 	github.com/aquasecurity/trivy-db v0.0.0-20220711124113-0230f730092d
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.2
-	github.com/urfave/cli/v2 v2.11.0
+	github.com/urfave/cli/v2 v2.25.7
 	go.etcd.io/bbolt v1.3.6
 )
 
@@ -26,7 +26,7 @@ require (
 	github.com/Azure/go-autorest/autorest/date v0.3.0 // indirect
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
-	github.com/BurntSushi/toml v1.1.0 // indirect
+	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/CycloneDX/cyclonedx-go v0.6.0 // indirect
 	github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
