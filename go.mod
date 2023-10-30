@@ -7,7 +7,7 @@ require (
 	github.com/aquasecurity/trivy-db v0.0.0-20220711124113-0230f730092d
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.2
 	github.com/urfave/cli/v2 v2.11.0
-	go.etcd.io/bbolt v1.3.6
+	go.etcd.io/bbolt v1.3.8
 )
 
 require (
