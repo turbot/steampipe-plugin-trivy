@@ -1,15 +1,15 @@
 ---
-title: "Steampipe Table: trivy_scan_artifact - Query OCI Trivy Scan Artifacts using SQL"
+title: "Steampipe Table: trivy_scan_artifact - Query Trivy Scan Artifacts using SQL"
 description: "Allows users to query Trivy Scan Artifacts, specifically the vulnerabilities within the scanned artifacts, providing insights into potential security risks."
 ---
 
-# Table: trivy_scan_artifact - Query OCI Trivy Scan Artifacts using SQL
+# Table: trivy_scan_artifact - Query Trivy Scan Artifacts using SQL
 
 Trivy is a simple and comprehensive vulnerability scanner for containers. It detects vulnerabilities in OS packages (Alpine, RHEL, CentOS, etc.) and application dependencies (Bundler, Composer, npm, yarn, etc.). Trivy is easy to use, just install the binary and you're ready to scan.
 
 ## Table Usage Guide
 
-The `trivy_scan_artifact` table provides insights into the vulnerabilities of scanned artifacts within OCI Trivy. As a security analyst, explore artifact-specific details through this table, including the types of vulnerabilities, their severities, and associated metadata. Utilize it to uncover information about potential security risks and to assist in prioritizing remediation efforts.
+The `trivy_scan_artifact` table provides insights into the vulnerabilities of scanned artifacts within Trivy. As a security analyst, explore artifact-specific details through this table, including the types of vulnerabilities, their severities, and associated metadata. Utilize it to uncover information about potential security risks and to assist in prioritizing remediation efforts.
 
 ## Examples
 

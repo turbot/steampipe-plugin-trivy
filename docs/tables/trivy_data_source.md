@@ -1,15 +1,15 @@
 ---
-title: "Steampipe Table: trivy_data_source - Query OCI Container Registry Images using SQL"
-description: "Allows users to query OCI Container Registry Images, specifically the vulnerability data for each image, providing insights into potential security risks and exposures."
+title: "Steampipe Table: trivy_data_source - Query Container Registry Images using SQL"
+description: "Allows users to query Container Registry Images, specifically the vulnerability data for each image, providing insights into potential security risks and exposures."
 ---
 
-# Table: trivy_data_source - Query OCI Container Registry Images using SQL
+# Table: trivy_data_source - Query Container Registry Images using SQL
 
-An OCI Container Registry Image is a versioned instance of an application, service, or system component, or a set of related services packaged together. These images are stored in the Oracle Cloud Infrastructure (OCI) Container Registry, a Docker v2 compliant, private container registry service. The OCI Container Registry supports private Docker namespace creation, image push and pull, and Docker manifest queries.
+A Container Registry Image is a versioned instance of an application, service, or system component, or a set of related services packaged together. These images are stored in the Container Registry, a Docker v2 compliant, private container registry service. The Container Registry supports private Docker namespace creation, image push and pull, and Docker manifest queries.
 
 ## Table Usage Guide
 
-The `trivy_data_source` table provides insights into OCI Container Registry Images, specifically their vulnerability data. As a security analyst, explore image-specific details through this table, including the type and severity of vulnerabilities, and associated metadata. Utilize it to uncover information about potential security risks and exposures, such as those with high severity vulnerabilities, the distribution of vulnerabilities, and the verification of security policies.
+The `trivy_data_source` table provides insights into Container Registry Images, specifically their vulnerability data. As a security analyst, explore image-specific details through this table, including the type and severity of vulnerabilities, and associated metadata. Utilize it to uncover information about potential security risks and exposures, such as those with high severity vulnerabilities, the distribution of vulnerabilities, and the verification of security policies.
 
 ## Examples
 

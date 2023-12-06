@@ -1,9 +1,9 @@
 ---
-title: "Steampipe Table: trivy_advisory - Query OCI Trivy Advisories using SQL"
+title: "Steampipe Table: trivy_advisory - Query Trivy Advisories using SQL"
 description: "Allows users to query Trivy Advisories, providing detailed information about the vulnerabilities identified by Trivy, a Simple and Comprehensive Vulnerability Scanner for Containers."
 ---
 
-# Table: trivy_advisory - Query OCI Trivy Advisories using SQL
+# Table: trivy_advisory - Query Trivy Advisories using SQL
 
 Trivy is a simple and comprehensive vulnerability scanner for containers. It detects vulnerabilities of OS packages (Alpine, RHEL, CentOS, etc.) and application dependencies (Bundler, Composer, npm, yarn, etc.). Trivy is particularly designed to scan containers, but it can also scan filesystems.
 
