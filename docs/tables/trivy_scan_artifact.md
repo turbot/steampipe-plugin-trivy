@@ -16,7 +16,15 @@ The `trivy_scan_artifact` table provides insights into the vulnerabilities of sc
 ### List the target artifacts as defined in trivy.spc
 Discover the types of target artifacts as defined in your system, which can help in understanding the different components involved and their nature. This can be beneficial in managing and organizing your resources effectively.
 
-```sql
+```sql+postgres
+select
+  artifact_name,
+  artifact_type
+from
+  trivy_scan_artifact;
+```
+
+```sql+sqlite
 select
   artifact_name,
   artifact_type
@@ -27,7 +35,7 @@ from
 ### OS for container image artifacts
 Analyze the settings to understand the operating system family and name for container image artifacts. This assists in assessing the compatibility and requirements of different systems in your infrastructure.
 
-```sql
+```sql+postgres
 select
   artifact_name,
   metadata -> 'OS' ->> 'Family' as family,
@@ -38,10 +46,21 @@ where
   artifact_type = 'container_image';
 ```
 
+```sql+sqlite
+select
+  artifact_name,
+  json_extract(metadata, '$.OS.Family') as family,
+  json_extract(metadata, '$.OS.Name') as name
+from
+  trivy_scan_artifact
+where
+  artifact_type = 'container_image';
+```
+
 ### Environment variables for container image artifacts
 Analyze the environment variables associated with container image artifacts to gain insights into their configurations. This can be useful for understanding the settings of your container images, which can help in troubleshooting or optimizing their performance.
 
-```sql
+```sql+postgres
 select
   artifact_name,
   jsonb_array_elements_text(metadata -> 'ImageConfig' -> 'config' -> 'Env') as env_var
@@ -51,10 +70,20 @@ where
   artifact_type = 'container_image';
 ```
 
+```sql+sqlite
+select
+  artifact_name,
+  json_extract(metadata, '$.ImageConfig.config.Env') as env_var
+from
+  trivy_scan_artifact
+where
+  artifact_type = 'container_image';
+```
+
 ### Exposed ports for container image artifacts
 Discover the segments that have exposed ports within your container image artifacts. This query is useful for identifying potential security risks and ensuring proper configuration.
 
-```sql
+```sql+postgres
 select
   artifact_name,
   port
@@ -65,17 +94,37 @@ where
   artifact_type = 'container_image';
 ```
 
+```sql+sqlite
+select
+  artifact_name,
+  key as port
+from
+  trivy_scan_artifact,
+  json_each(metadata, '$.ImageConfig.config.ExposedPorts')
+where
+  artifact_type = 'container_image';
+```
+
 ### Get full metadata and scan results for every artifact
 Explore the comprehensive metadata and scan outcomes for all artifacts to better understand the security vulnerabilities present. This can aid in identifying potential risks and taking proactive measures to mitigate them.
 This scan data is more convenient to access through other `trivy_scan_*`
 tables, but is provided here for deeper analysis if required.
 
 
-```sql
+```sql+postgres
 select
   artifact_name,
   artifact_type,
   jsonb_pretty(results)
+from
+  trivy_scan_artifact;
+```
+
+```sql+sqlite
+select
+  artifact_name,
+  artifact_type,
+  results
 from
   trivy_scan_artifact;
 ```

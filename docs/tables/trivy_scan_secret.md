@@ -16,7 +16,14 @@ The `trivy_scan_secret` table provides insights into the vulnerabilities associa
 ### Scan all targets defined in trivy.spc for secrets
 Explore all defined targets for potential secrets, enabling a comprehensive security assessment and proactive mitigation of potential risks. This helps in maintaining the integrity and confidentiality of your system.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  trivy_scan_secret;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -26,7 +33,17 @@ from
 ### Scan a specific directory for secrets
 Explore which secrets are hidden within a specific directory. This can be particularly useful for identifying potential security risks or vulnerabilities.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  trivy_scan_secret
+where
+  artifact_type = 'filesystem'
+  and artifact_name = '/Users/jane/.aws';
+```
+
+```sql+sqlite
 select
   *
 from
@@ -39,7 +56,17 @@ where
 ### Scan a specific container image for secrets
 Analyze the security of a specific container image by identifying potential hidden secrets. This query is useful in pinpointing vulnerabilities and ensuring secure container configuration.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  trivy_scan_secret
+where
+  artifact_type = 'container_image'
+  and artifact_name = 'turbot/steampipe';
+```
+
+```sql+sqlite
 select
   *
 from
@@ -52,7 +79,7 @@ where
 ### Count of secrets by artifact
 Analyze the settings to understand the quantity of secrets associated with each artifact. This can help in identifying areas where sensitive information might be excessively used or potentially exposed.
 
-```sql
+```sql+postgres
 select
   artifact_type,
   artifact_name,
@@ -66,10 +93,24 @@ order by
   count desc;
 ```
 
+```sql+sqlite
+select
+  artifact_type,
+  artifact_name,
+  count(*)
+from
+  trivy_scan_secret
+group by
+  artifact_type,
+  artifact_name
+order by
+  count(*) desc;
+```
+
 ### Count of secrets by rule
 Analyze the distribution of secrets by rule to understand which rules are associated with the most secrets, aiding in the prioritization of security measures.
 
-```sql
+```sql+postgres
 select
   rule_id,
   count(*)
@@ -79,4 +120,16 @@ group by
   rule_id
 order by
   count desc;
+```
+
+```sql+sqlite
+select
+  rule_id,
+  count(*)
+from
+  trivy_scan_secret
+group by
+  rule_id
+order by
+  count(*) desc;
 ```

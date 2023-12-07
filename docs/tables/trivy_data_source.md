@@ -16,7 +16,16 @@ The `trivy_data_source` table provides insights into Container Registry Images, 
 ### List all data sources
 Explore all the data sources within your system in a structured order for a comprehensive view and better management. This aids in identifying the data origin, ensuring data accuracy, and enhancing overall data governance.
 
-```sql
+```sql+postgres
+select
+  *
+from
+  trivy_data_source
+order by
+  system;
+```
+
+```sql+sqlite
 select
   *
 from
@@ -28,7 +37,18 @@ order by
 ### Get a specific data source
 Pinpoint the specific locations where a particular data source, such as 'Oracle Linux 6', is being used. This can be beneficial in understanding the scope and impact of that data source within your system.
 
-```sql
+```sql+postgres
+select
+  system,
+  name,
+  url
+from
+  trivy_data_source
+where
+  name = 'Oracle Linux 6';
+```
+
+```sql+sqlite
 select
   system,
   name,
@@ -42,7 +62,21 @@ where
 ### List all Alpine Linux data sources
 Explore the various data sources related to Alpine Linux in order to understand their systems and associated URLs. This could be beneficial in identifying and managing these resources effectively.
 
-```sql
+```sql+postgres
+select
+  name,
+  system,
+  url
+from
+  trivy_data_source
+where
+  id = 'alpine'
+order by
+  name,
+  system;
+```
+
+```sql+sqlite
 select
   name,
   system,
