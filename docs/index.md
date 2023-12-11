@@ -102,7 +102,4 @@ connection "trivy" {
 }
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-trivy
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
