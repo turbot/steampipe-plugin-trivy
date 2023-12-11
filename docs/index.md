@@ -8,6 +8,7 @@ name: trivy
 description: Steampipe plugin using Trivy to query advisories, vulnerabilities for containers, code and more.
 og_description: Query advisories, vulnerabilities, packages using Trivy with SQL! Open source CLI. No DB required.
 og_image: "/images/plugins/turbot/trivy-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Trivy + Steampipe
