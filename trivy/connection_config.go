@@ -9,8 +9,8 @@ import (
 
 type trivyConfig struct {
 	CacheDir *string  `hcl:"cache_dir"`
-	Images   []string `hcl:"images"`
-	Paths    []string `hcl:"paths"`
+	Images   []string `hcl:"images,optional"`
+	Paths    []string `hcl:"paths,optional"`
 }
 
 func ConfigInstance() interface{} {
