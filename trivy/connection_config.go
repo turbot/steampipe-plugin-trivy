@@ -5,27 +5,12 @@ import (
 	"path"
 
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
 )
 
 type trivyConfig struct {
-	CacheDir *string  `cty:"cache_dir"`
-	Images   []string `cty:"images"`
-	Paths    []string `cty:"paths"`
-}
-
-var ConfigSchema = map[string]*schema.Attribute{
-	"cache_dir": {
-		Type: schema.TypeString,
-	},
-	"images": {
-		Type: schema.TypeList,
-		Elem: &schema.Attribute{Type: schema.TypeString},
-	},
-	"paths": {
-		Type: schema.TypeList,
-		Elem: &schema.Attribute{Type: schema.TypeString},
-	},
+	CacheDir *string  `hcl:"cache_dir"`
+	Images   []string `hcl:"images,optional"`
+	Paths    []string `hcl:"paths,optional"`
 }
 
 func ConfigInstance() interface{} {
