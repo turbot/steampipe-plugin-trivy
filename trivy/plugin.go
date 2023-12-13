@@ -19,10 +19,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			//ShouldIgnoreError: isNotFoundError,
 		},
 		TableMap: map[string]*plugin.Table{
-			"trivy_scan_package":       tableTrivyScanPackage(ctx),
-			"trivy_scan_secret":        tableTrivyScanSecret(ctx),
-			"trivy_scan_vulnerability": tableTrivyScanVulnerability(ctx),
-			"trivy_vulnerability":      tableTrivyVulnerability(ctx),
+			"trivy_scan_package": tableTrivyScanPackage(ctx),
+			"trivy_scan_secret":  tableTrivyScanSecret(ctx),
 		},
 	}
 	return p
