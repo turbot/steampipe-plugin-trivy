@@ -7,7 +7,7 @@ toolchain go1.22.5
 require (
 	github.com/aquasecurity/trivy v0.53.0
 	github.com/aquasecurity/trivy-db v0.0.0-20231005141211-4fc651f7ac8d
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.3
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.4
 	github.com/urfave/cli/v2 v2.11.0
 	go.etcd.io/bbolt v1.3.10
 )
