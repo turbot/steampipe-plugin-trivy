@@ -1656,8 +1656,8 @@ github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1
 github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/turbot/go-kit v0.10.0-rc.0 h1:kd+jp2ibbIV33Hc8SsMAN410Dl9Pz6SJ40axbKUlSoA=
 github.com/turbot/go-kit v0.10.0-rc.0/go.mod h1:fFQqR59I5z5JeeBLfK1PjSifn4Oprs3NiQx0CxeSJxs=
-github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1 h1:yqiWeswy7geNzRIUJGuA7KQRq6gY5gUOc6ozBgbpNzI=
-github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1/go.mod h1:Ji3NU2vyZChu4aodAuSpeAS/JkApFGvsPePjOn8h9as=
+github.com/turbot/steampipe-plugin-sdk/v5 v5.10.4 h1:h2Ye0ksL6KN6w2wh1O3mgKthLnyl4QPsTpUj47bRbvc=
+github.com/turbot/steampipe-plugin-sdk/v5 v5.10.4/go.mod h1:FzW+0aq4x1PoCkklCRx43dMrhxk7SYeWVHUb3pNFtFc=
 github.com/tv42/httpunix v0.0.0-20191220191345-2ba4b9c3382c/go.mod h1:hzIxponao9Kjc7aWznkXaL4U4TWaDSs8zcsY4Ka08nM=
 github.com/twitchtv/twirp v8.1.2+incompatible h1:0O6TfzZW09ZP5r+ORA90XQEE3PTgA6C7MBbl2KxvVgE=
 github.com/twitchtv/twirp v8.1.2+incompatible/go.mod h1:RRJoFSAmTEh2weEqWtpPE3vFK5YBhA6bqp2l1kfCC5A=
