@@ -8,8 +8,8 @@ import (
 	dbTypes "github.com/aquasecurity/trivy-db/pkg/types"
 	"go.etcd.io/bbolt"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func tableTrivyDataSource(ctx context.Context) *plugin.Table {

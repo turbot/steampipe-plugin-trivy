@@ -4,7 +4,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 type trivyConfig struct {
@@ -19,10 +19,10 @@ func ConfigInstance() interface{} {
 
 // GetConfig :: retrieve and cast connection config from query data
 func GetConfig(connection *plugin.Connection) trivyConfig {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return trivyConfig{}
 	}
-	config, _ := connection.Config.(trivyConfig)
+	config, _ := connection.GetConfig().(trivyConfig)
 	return config
 }
 

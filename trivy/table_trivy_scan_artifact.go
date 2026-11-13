@@ -9,8 +9,8 @@ import (
 	"github.com/aquasecurity/trivy/pkg/types"
 	"github.com/urfave/cli/v2"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func tableTrivyScanArtifact(ctx context.Context) *plugin.Table {
@@ -164,7 +164,7 @@ func scanArtifact(ctx context.Context, d *plugin.QueryData, artifactType artifac
 		severity, _ := dbTypes.NewSeverity(s)
 		severities = append(severities, severity)
 	}
-	opt.ReportOption.Severities = severities
+	opt.Severities = severities
 
 	// Logging for debug
 	plugin.Logger(ctx).Debug("trivy_artifact.scanArtifact", "opt", opt)
@@ -176,7 +176,7 @@ func scanArtifact(ctx context.Context, d *plugin.QueryData, artifactType artifac
 		plugin.Logger(ctx).Error("trivy_artifact.scanArtifact", "run_error", err, "opt", opt)
 		return report, err
 	}
-	defer runner.Close(ctx)
+	defer func() { _ = runner.Close(ctx) }()
 
 	switch artifactType {
 	case containerImageArtifact, imageArchiveArtifact:
