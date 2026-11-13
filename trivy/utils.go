@@ -7,13 +7,13 @@ import (
 	"github.com/aquasecurity/trivy/pkg/commands/operation"
 	"go.etcd.io/bbolt"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func connectDatabase(ctx context.Context, d *plugin.QueryData) (*bbolt.DB, error) {
 
 	cacheKey := "trivy-database"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
+	if cachedData, ok := d.ConnectionCache.Get(ctx, cacheKey); ok {
 		return cachedData.(*bbolt.DB), nil
 	}
 
@@ -40,7 +40,7 @@ func connectDatabase(ctx context.Context, d *plugin.QueryData) (*bbolt.DB, error
 	conn := dbc.Connection()
 
 	// Save to cache
-	d.ConnectionManager.Cache.Set(cacheKey, conn)
+	_ = d.ConnectionCache.Set(ctx, cacheKey, conn)
 
 	return conn, nil
 }
